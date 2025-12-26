@@ -1,4 +1,6 @@
 const Listing = require("../models/listing");
+const axios = require("axios"); // ADD THIS
+const ttAPIKey = process.env.TOMTOM_API_KEY;
 
 module.exports.index = async (req, res) => {
     const allListings = await Listing.find({});
@@ -28,15 +30,35 @@ module.exports.showListing = async (req, res) => {
 }
 
 module.exports.createListing = async (req, res, next) => {
+    
+    let response = await axios.get(
+        `https://api.tomtom.com/search/2/geocode/${req.body.listing.location}.json?key=${ttAPIKey}`
+    );
+
     let url = req.file.path;
     let filename = req.file.filename;
+
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
-    newListing.image = {url, filename};
+    newListing.image = { url, filename };
+
+    if (response.data.results.length > 0) {
+        newListing.geometry = { 
+            type: 'Point', 
+            coordinates: [
+                response.data.results[0].position.lon, 
+                response.data.results[0].position.lat
+            ]
+        };
+    } else {
+        newListing.geometry = { type: 'Point', coordinates: [0, 0] };
+    }
+
     await newListing.save();
+    console.log(newListing);
     req.flash("success", "New Listing Created!");
     res.redirect("/listings");
-}
+};
 
 module.exports.renderEditForm = async (req, res) => {
     let { id } = req.params;
