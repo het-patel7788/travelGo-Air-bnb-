@@ -5,80 +5,48 @@
         <button>Create New Listing</button>
     </form> -->
 
-    <div id="filters">
-    <a href="/listings?category=Trending">
-        <div class="filter">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
+    <div class="d-lg-none d-flex justify-content-center mt-3 mb-2">
+    <button 
+        class="btn btn-light shadow-sm d-flex align-items-center justify-content-center" 
+        type="button" 
+        data-bs-toggle="collapse" 
+        data-bs-target="#filterCollapse" 
+        aria-expanded="false" 
+        aria-controls="filterCollapse"
+        style="border: 1px solid #ddd; border-radius: 25px; padding: 0.7rem 1.5rem; font-weight: 600;"
+    >
+        <i class="fa-solid fa-sliders me-2"></i> Filters
+    </button>
+</div>
+
+<div id="filterCollapse" class="collapse d-lg-block">
+    
+    <div class="filter-wrapper d-flex align-items-center">
+        
+        <div id="scrollLeft" class="scroll-arrow" style="display: none;">
+            <i class="fa-solid fa-angle-left"></i>
         </div>
-    </a>
-    <a href="/listings?category=Rooms">
-        <div class="filter">
-            <div><i class="fa-solid fa-bed"></i></div>
-            <p>Rooms</p>
+
+        <div id="filters">
+            <a href="/listings?category=Trending"><div class="filter"><div><i class="fa-solid fa-fire"></i></div><p>Trending</p></div></a>
+            <a href="/listings?category=Rooms"><div class="filter"><div><i class="fa-solid fa-bed"></i></div><p>Rooms</p></div></a>
+            <a href="/listings?category=Iconic Cities"><div class="filter"><div><i class="fa-solid fa-mountain-city"></i></div><p>Iconic Cities</p></div></a>
+            <a href="/listings?category=Mountains"><div class="filter"><div><i class="fa-solid fa-mountain"></i></div><p>Mountains</p></div></a>
+            <a href="/listings?category=Castles"><div class="filter"><div><i class="fa-brands fa-fort-awesome"></i></div><p>Castles</p></div></a>
+            <a href="/listings?category=Amazing Pools"><div class="filter"><div><i class="fa-solid fa-person-swimming"></i></div><p>Pools</p></div></a>
+            <a href="/listings?category=Camping"><div class="filter"><div><i class="fa-solid fa-campground"></i></div><p>Camping</p></div></a>
+            <a href="/listings?category=Farms"><div class="filter"><div><i class="fa-solid fa-cow"></i></div><p>Farms</p></div></a>
+            <a href="/listings?category=Arctic"><div class="filter"><div><i class="fa-regular fa-snowflake"></i></div><p>Arctic</p></div></a>
+            <a href="/listings?category=Domes"><div class="filter"><div><i class="fa-solid fa-igloo"></i></div><p>Domes</p></div></a>
+            <a href="/listings?category=Boats"><div class="filter"><div><i class="fa-solid fa-ship"></i></div><p>Boats</p></div></a>
         </div>
-    </a>
-    <a href="/listings?category=Iconic Cities">
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain-city"></i></div>
-            <p>Iconic Cities</p>
+
+        <div id="scrollRight" class="scroll-arrow d-none d-lg-flex">
+            <i class="fa-solid fa-angle-right"></i>
         </div>
-    </a>
-    <a href="/listings?category=Mountains">
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain"></i></div>
-            <p>Mountains</p>
-        </div>
-    </a>
-    <a href="/listings?category=Castles">
-        <div class="filter">
-            <div><i class="fa-brands fa-fort-awesome"></i></div>
-            <p>Castles</p>
-        </div>
-    </a>
-    <a href="/listings?category=Amazing Pools">
-        <div class="filter">
-            <div><i class="fa-solid fa-person-swimming"></i></div>
-            <p>Amazing Pools</p>
-        </div>
-    </a>
-    <a href="/listings?category=Camping">
-        <div class="filter">
-            <div><i class="fa-solid fa-campground"></i></div>
-            <p>Camping</p>
-        </div>
-    </a>
-    <a href="/listings?category=Farms">
-        <div class="filter">
-            <div><i class="fa-solid fa-cow"></i></div>
-            <p>Farms</p>
-        </div>
-    </a>
-    <a href="/listings?category=Arctic">
-        <div class="filter">
-            <div><i class="fa-regular fa-snowflake"></i></div>
-            <p>Arctic</p>
-        </div>
-    </a>
-    <a href="/listings?category=Domes">
-        <div class="filter">
-            <div><i class="fa-solid fa-igloo"></i></div>
-            <p>Domes</p>
-        </div>
-    </a>
-    <a href="/listings?category=Boats">
-        <div class="filter">
-            <div><i class="fa-solid fa-ship"></i></div>
-            <p>Boats</p>
-        </div>
-    </a>
-    <style>
-        #filters a {
-            text-decoration: none;
-            color: inherit;
-        }
-    </style>
+        
     </div>
+</div>
 
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
         <% for(let listing of allListings) { %>
@@ -98,3 +66,47 @@
             </a>
             <% } %>
     </div>
+
+<script>
+    const filters = document.getElementById("filters");
+    const btnLeft = document.getElementById("scrollLeft");
+    const btnRight = document.getElementById("scrollRight");
+
+    // Scroll Logic
+    btnRight.addEventListener("click", () => {
+        filters.scrollBy({ left: 300, behavior: "smooth" });
+    });
+    btnLeft.addEventListener("click", () => {
+        filters.scrollBy({ left: -300, behavior: "smooth" });
+    });
+
+    // Toggle Arrows Visibility
+    const toggleArrows = () => {
+        // Only run logic on Laptop screens (> 992px)
+        if (window.innerWidth > 992) {
+            
+            // 1. Manage Left Arrow
+            // If we are at the start (0), HIDE it. Else SHOW it.
+            if (filters.scrollLeft > 10) { 
+                btnLeft.style.display = "flex";
+            } else {
+                btnLeft.style.display = "none";
+            }
+            
+            // 2. Manage Right Arrow
+            const maxScroll = filters.scrollWidth - filters.clientWidth;
+            if (maxScroll - filters.scrollLeft > 10) {
+                 btnRight.style.display = "flex";
+            } else {
+                 btnRight.style.display = "none";
+            }
+        }
+    };
+
+    // Listeners
+    filters.addEventListener("scroll", toggleArrows);
+    window.addEventListener("resize", toggleArrows);
+    
+    // Run once on load to ensure Left Arrow is hidden
+    toggleArrows(); 
+</script>

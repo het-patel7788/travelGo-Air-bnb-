@@ -26,7 +26,7 @@ const initDB = async () => {
             type: "Point",
             coordinates: [0, 0]
         },
-        category: categories[Math.floor(Math.random() * categories.length)]
+        category: "Trending"
     }));
     await Listing.insertMany(initData.data);
     console.log("data was initialized")

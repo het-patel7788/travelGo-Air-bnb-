@@ -125,48 +125,86 @@ body{
 }
 
 /* filter options on page */
+/* =========================================
+   1. LAPTOP VIEW (> 992px)
+   ========================================= */
+/* Wrapper holds icons and arrows */
+.filter-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* Horizontal Scroll Container */
 #filters {
     display: flex;
-    flex-wrap: nowrap; 
-    overflow-x: auto; 
-    align-items: center;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
     width: 100%;
+    align-items: center;
     padding: 1rem 0;
-    margin-bottom: 0rem;
-    gap: 1.8rem; 
+    gap: 2rem;
+    scroll-behavior: smooth;
 }
 
-#filters::-webkit-scrollbar {
-    display: none;
-}
+/* Hide Scrollbar */
+#filters::-webkit-scrollbar { display: none; }
+#filters { -ms-overflow-style: none; scrollbar-width: none; }
 
-#filters {
-    -ms-overflow-style: none;  
-    scrollbar-width: none;  
-}
-
+/* Filter Item */
 .filter {
+    flex: 0 0 auto;
     text-align: center;
-    margin-right: 2rem;
-    margin-top: 1rem;
     opacity: 0.7;
-    flex-shrink: 0; 
+    min-width: 80px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.2s;
 }
+.filter:hover { opacity: 1; border-bottom: 2px solid black; }
+#filters a { text-decoration: none; color: inherit; }
 
-.filter:hover {
-    opacity: 1;
-    border-bottom: 2px solid black;
-    padding-bottom: 5px; 
+/* Arrow Buttons (Desktop Only) */
+.scroll-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 35px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
+.scroll-arrow:hover { background-color: #f8f8f8; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
 
-.filter p {
-    font-size: 0.8rem;
-    margin-top: 0.25rem; 
-    font-weight: 500;
-}
+#scrollLeft { left: -10px; } /* Push slightly outside */
+#scrollRight { right: -10px; }
 
-.filter i {
-    font-size: 1.5rem; 
+
+/* =========================================
+   2. TABLET & MOBILE VIEW (< 992px)
+   ========================================= */
+@media (max-width: 992px) {
+    /* Hide Arrows via CSS to be safe */
+    .scroll-arrow { display: none !important; }
+
+    /* Switch Container to Grid */
+    #filterCollapse.show #filters, 
+    #filterCollapse.collapsing #filters {
+        flex-wrap: wrap !important;
+        justify-content: center;
+        overflow-x: hidden; /* No scroll needed */
+        gap: 1rem;
+        padding: 0 0 1rem 0;
+    }
+
+    /* Force Grid Item Size */
+    #filterCollapse.show .filter {
+        flex: 0 0 20%; /* 4-5 items per row */
+        width: 20%;
+    }
 }
