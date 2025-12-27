@@ -15,6 +15,8 @@ async function main(){
     await mongoose.connect(mongo_url);
 }
 
+const categories = ["Trending", "Rooms", "Iconic Cities", "Mountains", "Castles", "Amazing Pools", "Camping", "Farms", "Arctic", "Boats"];
+
 const initDB = async () => {
     await Listing.deleteMany({});
     initData.data = initData.data.map((obj) => ({
@@ -23,7 +25,8 @@ const initDB = async () => {
         geometry: {
             type: "Point",
             coordinates: [0, 0]
-        }
+        },
+        category: categories[Math.floor(Math.random() * categories.length)]
     }));
     await Listing.insertMany(initData.data);
     console.log("data was initialized")

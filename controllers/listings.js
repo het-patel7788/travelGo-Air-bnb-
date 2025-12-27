@@ -3,9 +3,35 @@ const axios = require("axios"); // ADD THIS
 const ttAPIKey = process.env.TOMTOM_API_KEY;
 
 module.exports.index = async (req, res) => {
-    const allListings = await Listing.find({});
+    const { q, category } = req.query;
+
+    let allListings;
+
+    if (category) {
+        allListings = await Listing.find({ category: category });
+    } 
+    else if (q) {
+        allListings = await Listing.find({
+            $or: [
+                { location: { $regex: q, $options: "i" } },
+                { country: { $regex: q, $options: "i" } },
+                { title: { $regex: q, $options: "i" } }
+            ]
+        });
+    } 
+    else {
+        allListings = await Listing.find({});
+    }
+
+    if (allListings.length === 0) {
+        req.flash("error", "No listings found!");
+        if (category || q) {
+             return res.redirect("/listings");
+        }
+    }
+
     res.render("listings/index.ejs", { allListings });
-}
+};
 
 module.exports.renderNewForm = (req, res) => {
     res.render("listings/new.ejs");

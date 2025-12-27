@@ -123,3 +123,50 @@ body{
     padding-left: 0;
     padding-right: 0;
 }
+
+/* filter options on page */
+#filters {
+    display: flex;
+    flex-wrap: nowrap; 
+    overflow-x: auto; 
+    align-items: center;
+    width: 100%;
+    padding: 1rem 0;
+    margin-bottom: 0rem;
+    gap: 1.8rem; 
+}
+
+#filters::-webkit-scrollbar {
+    display: none;
+}
+
+#filters {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+}
+
+.filter {
+    text-align: center;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    opacity: 0.7;
+    flex-shrink: 0; 
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filter:hover {
+    opacity: 1;
+    border-bottom: 2px solid black;
+    padding-bottom: 5px; 
+}
+
+.filter p {
+    font-size: 0.8rem;
+    margin-top: 0.25rem; 
+    font-weight: 500;
+}
+
+.filter i {
+    font-size: 1.5rem; 
+}
