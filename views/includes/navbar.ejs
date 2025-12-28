@@ -1,9 +1,19 @@
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="ms-auto d-flex align-items-center">
+
+            <button class="btn btn-light rounded-circle me-3 shadow-sm d-md-none" type="button"
+                data-bs-toggle="collapse" data-bs-target="#mobileSearchMenu" aria-expanded="false"
+                style="width: 40px; height: 40px; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center;">
+                <i class="fa-solid fa-magnifying-glass text-danger"></i>
+            </button>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </div>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link" href="/listings">Explore</a>
@@ -39,6 +49,29 @@
                             <a class="nav-link" href="/logout">Log out</a>
                             <% } %>
             </div>
+        </div>
+    </div>
+    <div class="collapse w-100 d-md-none mt-2" id="mobileSearchMenu">
+        <div class="p-3 bg-white border-top shadow-sm">
+            <form action="/listings" method="GET" class="d-flex flex-column gap-2">
+
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i
+                            class="fa-solid fa-location-dot text-secondary"></i></span>
+                    <input type="text" name="location" class="form-control shadow-none"
+                        placeholder="Search Destination">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i
+                            class="fa-solid fa-earth-americas text-secondary"></i></span>
+                    <input type="text" name="country" class="form-control shadow-none" placeholder="Search Country">
+                </div>
+
+                <button class="btn btn-danger w-100 rounded-pill mt-2" type="submit">
+                    Search
+                </button>
+            </form>
         </div>
     </div>
 </nav>

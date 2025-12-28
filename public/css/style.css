@@ -24,6 +24,35 @@ body{
     color: #222222 !important;
 }
 
+/* MOBILE RESPONSIVENESS FIXES (Paste at bottom of style.css) */
+
+@media (max-width: 768px) {
+    .search-bar-container {
+        display: none !important;
+    }
+
+    .navbar-collapse {
+        background-color: white;
+        z-index: 1000; 
+        border-bottom: 1px solid #ddd; 
+    }
+
+    .navbar {
+        height: auto;
+        padding: 0.5rem 0;
+    }
+
+    .card-img-top {
+        height: 15rem; 
+    }
+}
+
+@media (min-width: 769px) {
+    .search-mobile-pill {
+        display: none !important;
+    }
+}
+
 
 /* Footer */
 .f-info-links a{
@@ -125,9 +154,8 @@ body{
 }
 
 /* filter options on page */
-/* =========================================
-   1. LAPTOP VIEW (> 992px)
-   ========================================= */
+/* 
+   1. LAPTOP VIEW (> 992px)*/
 /* Wrapper holds icons and arrows */
 .filter-wrapper {
     position: relative;
@@ -185,9 +213,7 @@ body{
 #scrollRight { right: -10px; }
 
 
-/* =========================================
-   2. TABLET & MOBILE VIEW (< 992px)
-   ========================================= */
+/* 2. TABLET & MOBILE VIEW (< 992px) */
 @media (max-width: 992px) {
     /* Hide Arrows via CSS to be safe */
     .scroll-arrow { display: none !important; }
@@ -275,6 +301,26 @@ body{
 .search-btn i { font-size: 0.9rem; }
 
 /* 5. Hide on Mobile (Too big for phones) */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .search-bar-container { display: none; }
+} */
+
+/* --- MOBILE SEARCH DROPDOWN STYLING --- */
+@media (max-width: 768px) {
+    /* Style the dropdown container */
+    #mobileSearchMenu {
+        position: absolute;
+        top: 100%; /* Puts it directly below the navbar */
+        left: 0;
+        right: 0;
+        z-index: 999; /* Ensures it floats on top of images */
+    }
+
+    /* Style the inputs inside */
+    #mobileSearchMenu .input-group-text {
+        border-right: none;
+    }
+    #mobileSearchMenu .form-control {
+        border-left: none;
+    }
 }
