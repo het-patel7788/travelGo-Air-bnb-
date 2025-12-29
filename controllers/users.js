@@ -4,7 +4,7 @@ module.exports.signupGet = (req, res) => {
     res.render("users/signup.ejs");
 }
 
-module.exports.signupPost = async (req, res) => {
+module.exports.signupPost = async (req, res, next) => {
     try {
         let { username, email, password } = req.body;
         const newUser = new User({ email, username });
@@ -14,12 +14,12 @@ module.exports.signupPost = async (req, res) => {
                 return next(err);
             }
             req.flash("success", `welcome ${username}`);
-            res.redirect("/listings");
+            return res.redirect("/listings");
         });
     }
     catch (e) {
         req.flash("error", e.message);
-        res.redirect("/signup");
+        return res.redirect("/signup");
     }
 }
 

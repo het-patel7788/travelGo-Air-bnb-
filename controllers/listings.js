@@ -64,7 +64,7 @@ module.exports.createListing = async (req, res, next) => {
     newListing.owner = req.user._id;
     newListing.image = { url, filename };
 
-    if (response.data.results.length > 0) {
+    if (response.data.results && response.data.results.length > 0) {
         newListing.geometry = { 
             type: 'Point', 
             coordinates: [

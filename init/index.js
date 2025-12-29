@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
 const initData = require("./data.js");
 const Listing = require("../models/listing.js");
-const mongo_url = 'mongodb://127.0.0.1:27017/travelGO';
+
+if (process.env.NODE_ENV != "production") {
+  require('dotenv').config();
+}
+
+const dbUrl = process.env.ATLASDB_URL;
 
 main()
     .then(() => {
@@ -12,7 +17,7 @@ main()
     })
 
 async function main(){
-    await mongoose.connect(mongo_url);
+    await mongoose.connect(dbUrl);
 }
 
 const categories = ["Trending", "Rooms", "Iconic Cities", "Mountains", "Castles", "Amazing Pools", "Camping", "Farms", "Arctic", "Boats"];
@@ -21,7 +26,7 @@ const initDB = async () => {
     await Listing.deleteMany({});
     initData.data = initData.data.map((obj) => ({
         ...obj,
-        owner: '69157926b365e21d9d492884',
+        owner: '6952234a6e75f774cc83ec5b',
         geometry: {
             type: "Point",
             coordinates: [0, 0]
