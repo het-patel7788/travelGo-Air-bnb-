@@ -1,13 +1,13 @@
 <% layout("/layouts/boilerplate") %>
 
 <div class="row">
-    <div class="col-8 offset-3 mt-3">
+    <div class="col-12 col-md-8 offset-md-3 mt-3">
         <h2><%=listing.title%></h2>
     </div>
 </div>
 
 <div class="row">
-    <div class="card col-5 offset-3 show-card listing-card mt-3">
+    <div class="card col-12 col-md-6 offset-md-3 show-card listing-card mt-3">
         <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
         <div class="card-body">
             <p class="card-text mt-1">Owned By: <i><%= listing.owner.username %></i></p>
@@ -20,16 +20,16 @@
 </div>
 
 <% if (currUser && listing.owner._id.equals(currUser._id)) { %>
-<div class="btns">
-    <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark offset-3 edit-btn mb-3" style="width: auto; min-width: 80px;">Edit</a>
+<div class="btns mb-3"> <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-md-3 edit-btn" style="width: auto; min-width: 80px;">Edit</a>
+    
     <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="d-inline">
-        <button class="btn btn-dark offset-5 mb-3" style="width: auto; min-width: 80px;">Delete</button>
+        <button class="btn btn-dark offset-md-2" style="margin-left: 5px; width: auto; min-width: 80px;">Delete</button>
     </form>
 </div>
 <% } %>
 
 <div class="row">
-    <div class="col-8 offset-3 mb-3">
+    <div class="col-12 col-md-8 offset-md-3 mb-3">
         <% if (currUser) { %>
             <hr>
             <h4>Leave a Review</h4>
@@ -65,7 +65,7 @@
         <p><b>All Reviews</b></p>
         <div class="row">
             <% for(review of listing.reviews) { %>
-                <div class="card col-5 mb-3 ms-3">
+                <div class="card col-12 col-md-5 mb-3 ms-md-3">
                     <div class="card-body">
                         <h5 class="card-title">@<%= review.author ? review.author.username : 'Anonymous' %></h5>
                         <p class="starability-result card-text mt-2" data-rating="<%=review.rating%>"></p>
@@ -82,7 +82,7 @@
     </div>
 </div>
 
-<div class="col-8 offset-3 mb-3">
+<div class="col-12 col-md-8 offset-md-3 mb-3">                                                                                                                          
     <h3>Where you'll be</h3>
     <div id="map" style="height: 400px; width: 100%; border-radius: 10px;"></div>
 </div>

@@ -140,8 +140,15 @@ body{
 
 
 /* Show page */
-.show-img{
-    height: 41vh;
+.show-img {
+    height: 30vh; /* Shorter height on mobile looks better */
+    object-fit: cover !important; /* The magic property that fixes squishing */
+}
+
+@media (min-width: 768px) {
+    .show-img {
+        height: 41vh; /* Restore original height for laptops */
+    }
 }
 
 .btns{
